@@ -1,5 +1,5 @@
 import { AppContainer } from './App.style'
-import Home from './ui/pages/Home'
+import Home from './ui/pages/Home/Home'
 
 function App() {
   return (

@@ -1,14 +1,10 @@
+import { Box } from '@mui/material'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 
 const containerStyle = {
   width: '600px',
   height: '500px',
-}
-
-const center = {
-  lat: -3.745,
-  lng: -38.523,
 }
 
 interface UserCoords {
@@ -40,12 +36,13 @@ function Home() {
   }, [])
 
   return (
-    isLoaded &&
-    userCoords && (
-      <GoogleMap mapContainerStyle={containerStyle} center={userCoords} zoom={11}>
-        {userCoords && <Marker position={userCoords} />}
-      </GoogleMap>
-    )
+    <Box>
+      {isLoaded && userCoords && (
+        <GoogleMap mapContainerStyle={containerStyle} center={userCoords} zoom={11}>
+          {userCoords && <Marker position={userCoords} />}
+        </GoogleMap>
+      )}
+    </Box>
   )
 }
 
