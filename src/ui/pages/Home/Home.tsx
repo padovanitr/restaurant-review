@@ -1,26 +1,8 @@
 import { Box } from '@mui/material'
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
+import { useJsApiLoader } from '@react-google-maps/api'
 import { useCallback, useEffect, useState } from 'react'
-
-const containerStyle = {
-  width: '600px',
-  height: '500px',
-}
-
-interface UserCoordsType {
-  lat: number
-  lng: number
-}
-
-interface GoogleRestaurantsType {
-  place_id: string
-  geometry: {
-    location: {
-      lat: () => number
-      lng: () => number
-    }
-  }
-}
+import MapContainer from '../../components/MapContainer'
+import { GoogleRestaurantsType, UserCoordsType } from './Home.utils'
 
 function Home() {
   const [userCoords, setUserCoords] = useState<UserCoordsType>()
@@ -29,8 +11,6 @@ function Home() {
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyD8oKLh-p7_hSxhSg03u_nRkN2RPYpl720',
   })
-
-  const handleMarkerClick = (event: google.maps.MapMouseEvent) => {}
 
   const fetchGooglePlaces = useCallback(
     (map: HTMLDivElement | google.maps.Map) => {
@@ -76,32 +56,11 @@ function Home() {
   return (
     <Box>
       {isLoaded && userCoords && (
-        <GoogleMap
-          onLoad={(map) => fetchGooglePlaces(map)}
-          mapContainerStyle={containerStyle}
-          center={userCoords}
-          zoom={13}
-        >
-          {userCoords && (
-            <Marker
-              title="My position"
-              position={userCoords}
-              onClick={(e) => handleMarkerClick(e)}
-            />
-          )}
-
-          {googleRestaurants &&
-            googleRestaurants.map((restaurant) => (
-              <Marker
-                key={restaurant.place_id}
-                title="My position"
-                position={{
-                  lat: restaurant.geometry.location.lat(),
-                  lng: restaurant.geometry.location.lng(),
-                }}
-              />
-            ))}
-        </GoogleMap>
+        <MapContainer
+          fetchGooglePlaces={fetchGooglePlaces}
+          userCoords={userCoords}
+          googleRestaurants={googleRestaurants}
+        />
       )}
     </Box>
   )
