@@ -4,6 +4,7 @@ export interface UserCoordsType {
 }
 
 export interface GoogleRestaurantsType {
+  name: string
   place_id: string
   geometry: {
     location: {

@@ -1,10 +1,15 @@
 import { Typography } from '@mui/material'
+import { GoogleRestaurantsType } from '../../pages/Home/Home.utils'
 import { StyledCard } from './InfoCard.style'
 
-function InfoCard() {
+interface InfoCardProps {
+  restaurantInfo: GoogleRestaurantsType
+}
+
+function InfoCard({ restaurantInfo }: InfoCardProps) {
   return (
-    <StyledCard sx={{ borderRadius: '0.5rem' }}>
-      <Typography>Restaurant Name</Typography>
+    <StyledCard sx={{ borderRadius: '0.3rem' }}>
+      <Typography>{restaurantInfo.name}</Typography>
     </StyledCard>
   )
 }

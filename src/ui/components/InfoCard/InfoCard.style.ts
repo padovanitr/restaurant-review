@@ -4,7 +4,8 @@ export const StyledCard = styled(Card)(
   ({ theme }) => css`
     display: flex;
     align-items: center;
-    padding-bottom: ${theme.spacing(1)};
+    padding: ${theme.spacing(2)};
+    flex-direction: column;
 
     height: 200px;
     width: 350px;
