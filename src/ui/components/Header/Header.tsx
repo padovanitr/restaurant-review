@@ -1,10 +1,10 @@
-import { Box } from '@mui/material'
+import { StyledHeader } from './Header.style'
 
 function Header() {
   return (
-    <Box sx={{ height: 70 }}>
+    <StyledHeader>
       <h1>Header</h1>
-    </Box>
+    </StyledHeader>
   )
 }
 

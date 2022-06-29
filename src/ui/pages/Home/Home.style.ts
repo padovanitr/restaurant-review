@@ -12,8 +12,29 @@ export const Container = styled(Box)(
     gap: 0;
     flex-direction: column;
 
-    ${theme.breakpoints.up('lg')} {
+    ${theme.breakpoints.up('md')} {
       flex-direction: row;
+    }
+  `
+)
+
+export const MapWrapper = styled(Box)(
+  ({ theme }) => css`
+    flex: 1;
+    display: 'flex';
+    justify-content: 'center';
+
+    ${theme.breakpoints.up('md')} {
+      flex: 2;
+    }
+  `
+)
+
+export const ListWrapper = styled(Box)(
+  ({ theme }) => css`
+    ${theme.breakpoints.up('md')} {
+      flex: unset;
+      padding: '10px 40px';
     }
   `
 )
