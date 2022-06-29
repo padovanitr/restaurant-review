@@ -2,8 +2,8 @@ import { GoogleMap, Marker } from '@react-google-maps/api'
 import { GoogleRestaurantsType, UserCoordsType } from '../../pages/Home/Home.utils'
 
 const containerStyle = {
-  width: '600px',
-  height: '500px',
+  width: '100%',
+  height: '100%',
 }
 
 interface MapContainerProps {

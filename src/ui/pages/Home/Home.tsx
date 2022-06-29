@@ -1,7 +1,9 @@
 import { Box } from '@mui/material'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { useCallback, useEffect, useState } from 'react'
+import List from '../../components/List/List'
 import MapContainer from '../../components/MapContainer'
+import { Container } from './Home.style'
 import { GoogleRestaurantsType, UserCoordsType } from './Home.utils'
 
 function Home() {
@@ -54,15 +56,20 @@ function Home() {
   }, [])
 
   return (
-    <Box>
-      {isLoaded && userCoords && (
-        <MapContainer
-          fetchGooglePlaces={fetchGooglePlaces}
-          userCoords={userCoords}
-          googleRestaurants={googleRestaurants}
-        />
-      )}
-    </Box>
+    <Container>
+      <Box sx={{ flex: 2, display: 'flex', justifyContent: 'center' }}>
+        {isLoaded && userCoords && (
+          <MapContainer
+            fetchGooglePlaces={fetchGooglePlaces}
+            userCoords={userCoords}
+            googleRestaurants={googleRestaurants}
+          />
+        )}
+      </Box>
+      <Box sx={{ padding: '10px 40px' }}>
+        <List />
+      </Box>
+    </Container>
   )
 }
 
