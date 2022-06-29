@@ -66,8 +66,8 @@ function Home() {
           />
         )}
       </Box>
-      <Box sx={{ padding: '10px 40px' }}>
-        <List />
+      <Box sx={{ padding: '10px 40px', overflow: 'scroll' }}>
+        <List googleRestaurants={googleRestaurants} />
       </Box>
     </Container>
   )

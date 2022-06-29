@@ -3,7 +3,7 @@ import { StyledCard } from './InfoCard.style'
 
 function InfoCard() {
   return (
-    <StyledCard>
+    <StyledCard sx={{ borderRadius: '0.5rem' }}>
       <Typography>Restaurant Name</Typography>
     </StyledCard>
   )
