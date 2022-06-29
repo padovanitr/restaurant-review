@@ -9,6 +9,7 @@ export const restaurantReviewColors = {
   lightGray: '#E6E6E6',
   arrowTownGray: '#94806b',
   white: '#FFFFFF',
+  starYellow: '#F9D71C',
 } as const
 
 export type Colors = typeof restaurantReviewColors
