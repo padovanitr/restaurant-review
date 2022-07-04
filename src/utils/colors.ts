@@ -1,4 +1,5 @@
 export const restaurantReviewColors = {
+  mainRed: '#e51b23',
   whiteSmoke: '#F5F5F5',
   brightGray: '#EDEDED',
   sunsetOrange: '#fe5f50',

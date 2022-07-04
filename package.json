@@ -19,7 +19,9 @@
     "react-dom": "^18.0.0",
     "react-error-boundary": "^3.1.4",
     "react-google-maps": "^9.4.5",
-    "react-star-ratings": "^2.3.0"
+    "react-star-ratings": "^2.3.0",
+    "vite-plugin-svgr": "^2.2.0",
+    "vite-tsconfig-paths": "^3.5.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.18.6",

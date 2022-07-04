@@ -14,7 +14,7 @@ function List({ googleRestaurants }: ListProps) {
         <Typography sx={{ fontSize: '1.5rem', color: restaurantReviewColors.darkGrey }}>
           Restaurants
         </Typography>
-        <Typography>{googleRestaurants.length} results</Typography>
+        <Typography>({googleRestaurants.length} results)</Typography>
       </Box>
       {googleRestaurants &&
         googleRestaurants.map((restaurant) => (
