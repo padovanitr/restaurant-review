@@ -19,7 +19,7 @@ const baseTheme = createTheme({
   },
   palette: {
     primary: {
-      main: restaurantReviewColors.sunsetOrange,
+      main: restaurantReviewColors.mainRed,
     },
     secondary: {
       main: restaurantReviewColors.lightGray,
