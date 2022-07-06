@@ -12,31 +12,39 @@ function Home() {
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyD8oKLh-p7_hSxhSg03u_nRkN2RPYpl720',
   })
+  console.log('googleRestaurants', googleRestaurants)
 
-  const fetchGooglePlaces = useCallback(
-    (map: HTMLDivElement | google.maps.Map) => {
-      if (!userCoords) {
-        return
+  const fetchGooglePlaces = (map: HTMLDivElement | google.maps.Map) => {
+    if (!userCoords) {
+      return
+    }
+    const pyrmont = new window.google.maps.LatLng(userCoords.lat, userCoords.lng)
+
+    const request = {
+      location: pyrmont,
+      radius: 1500,
+      type: 'restaurant',
+    }
+
+    const service = new google.maps.places.PlacesService(map)
+
+    service.nearbySearch(request, (results, status) => {
+      if (status === 'OK' && results) {
+        const places: unknown[] = []
+        results.forEach((result) => {
+          if (result.place_id) {
+            service.getDetails({ placeId: result.place_id }, (placeResult, pstatus) => {
+              if (pstatus === 'OK' && placeResult) {
+                places.push(placeResult)
+
+                setGoogleRestaurants(places as GoogleRestaurantsType[])
+              }
+            })
+          }
+        })
       }
-      const pyrmont = new window.google.maps.LatLng(userCoords.lat, userCoords.lng)
-
-      const request = {
-        location: pyrmont,
-        radius: 1500,
-        type: 'restaurant',
-      }
-
-      const service = new google.maps.places.PlacesService(map)
-
-      service.nearbySearch(request, (results, status) => {
-        if (status === 'OK') {
-          console.log('results', results)
-          setGoogleRestaurants(results as GoogleRestaurantsType[])
-        }
-      })
-    },
-    [userCoords]
-  )
+    })
+  }
 
   const getUserLocation = async () => {
     const { coords } = await new Promise((res, rej) => {

@@ -20,7 +20,7 @@ function Header() {
           Restaurant Review
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+      {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <ShareIcon color="primary" />
           <Typography sx={{ fontSize: '1.125rem' }}>Share</Typography>
@@ -29,7 +29,7 @@ function Header() {
           <ChatBubbleIcon color="primary" />
           <Typography sx={{ fontSize: '1.125rem' }}>Contact us</Typography>
         </Box>
-      </Box>
+      </Box> */}
     </StyledHeader>
   )
 }

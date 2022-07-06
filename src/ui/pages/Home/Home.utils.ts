@@ -7,6 +7,7 @@ export interface GoogleRestaurantsType {
   name: string
   place_id: string
   rating: number
+  vicinity: string
   user_ratings_total: number
   geometry: {
     location: {
