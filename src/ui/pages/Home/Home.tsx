@@ -1,5 +1,5 @@
 import { useJsApiLoader } from '@react-google-maps/api'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import List from '../../components/List/List'
 import MapContainer from '../../components/MapContainer'
 import { Container, ListWrapper, MapWrapper } from './Home.style'
@@ -12,7 +12,6 @@ function Home() {
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyD8oKLh-p7_hSxhSg03u_nRkN2RPYpl720',
   })
-  console.log('googleRestaurants', googleRestaurants)
 
   const fetchGooglePlaces = (map: HTMLDivElement | google.maps.Map) => {
     if (!userCoords) {

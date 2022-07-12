@@ -12,10 +12,16 @@ interface InfoCardProps {
 function InfoCard({ restaurantInfo }: InfoCardProps) {
   return (
     <StyledCard sx={{ borderRadius: '0.3rem' }}>
-      <Typography variant="h6">{restaurantInfo.name}</Typography>
+      <Typography
+        sx={{ fontSize: '1rem', fontWeight: 700, lineHeight: '1.2rem', textAlign: 'center' }}
+      >
+        {restaurantInfo.name}
+      </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <LocationOnIcon color="primary" sx={{ fontSize: 20 }} />
-        <Typography variant="subtitle1">{restaurantInfo.vicinity}</Typography>
+        <Typography variant="subtitle1" sx={{ lineHeight: '1.2rem' }}>
+          {restaurantInfo.vicinity}
+        </Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <StarRatings

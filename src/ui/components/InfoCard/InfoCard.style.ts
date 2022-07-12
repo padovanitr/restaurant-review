@@ -7,7 +7,8 @@ export const StyledCard = styled(Card)(
     padding: ${theme.spacing(2)};
     flex-direction: column;
 
-    height: 200px;
+    height: auto;
     width: 350px;
+    gap: 1rem;
   `
 )
