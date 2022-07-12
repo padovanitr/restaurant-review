@@ -1,11 +1,14 @@
+import { Button } from '@mui/material'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 import List from '../../components/List/List'
 import MapContainer from '../../components/MapContainer'
+import RestaurantModal from '../../components/RestaurantModal'
 import { Container, ListWrapper, MapWrapper } from './Home.style'
 import { GoogleRestaurantsType, UserCoordsType } from './Home.utils'
 
 function Home() {
+  const [modalIsOpen, setIsOpen] = useState(false)
   const [userCoords, setUserCoords] = useState<UserCoordsType>()
   const [googleRestaurants, setGoogleRestaurants] = useState<GoogleRestaurantsType[]>([])
   const { isLoaded } = useJsApiLoader({
@@ -75,6 +78,8 @@ function Home() {
       <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
         <List googleRestaurants={googleRestaurants} />
       </ListWrapper>
+      <Button onClick={() => setIsOpen(true)}>Open</Button>
+      {modalIsOpen && <RestaurantModal isModalOpen={modalIsOpen} setOpenModal={setIsOpen} />}
     </Container>
   )
 }
