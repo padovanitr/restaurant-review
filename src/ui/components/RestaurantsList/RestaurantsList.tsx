@@ -1,13 +1,15 @@
 import { Box, Typography } from '@mui/material'
+import { Dispatch, SetStateAction } from 'react'
 import { restaurantReviewColors } from '../../../utils/colors'
 import { GoogleRestaurantsType } from '../../pages/Home/Home.utils'
 import InfoCard from '../InfoCard'
 
-interface ListProps {
+export interface RestaurantsListProps {
   googleRestaurants: Array<GoogleRestaurantsType>
+  setModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
-function List({ googleRestaurants }: ListProps) {
+function RestaurantsList({ googleRestaurants, setModalOpen }: RestaurantsListProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
@@ -18,10 +20,14 @@ function List({ googleRestaurants }: ListProps) {
       </Box>
       {googleRestaurants &&
         googleRestaurants.map((restaurant) => (
-          <InfoCard key={restaurant.place_id} restaurantInfo={restaurant} />
+          <InfoCard
+            setModalOpen={setModalOpen}
+            key={restaurant.place_id}
+            restaurantInfo={restaurant}
+          />
         ))}
     </Box>
   )
 }
 
-export default List
+export default RestaurantsList

@@ -1,14 +1,14 @@
 import { Button } from '@mui/material'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
-import List from '../../components/List/List'
+import RestaurantsList from '../../components/RestaurantsList/RestaurantsList'
 import MapContainer from '../../components/MapContainer'
 import RestaurantModal from '../../components/RestaurantModal'
 import { Container, ListWrapper, MapWrapper } from './Home.style'
 import { GoogleRestaurantsType, UserCoordsType } from './Home.utils'
 
 function Home() {
-  const [modalIsOpen, setIsOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   const [userCoords, setUserCoords] = useState<UserCoordsType>()
   const [googleRestaurants, setGoogleRestaurants] = useState<GoogleRestaurantsType[]>([])
   const { isLoaded } = useJsApiLoader({
@@ -76,10 +76,10 @@ function Home() {
         )}
       </MapWrapper>
       <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
-        <List googleRestaurants={googleRestaurants} />
+        <RestaurantsList setModalOpen={setModalOpen} googleRestaurants={googleRestaurants} />
       </ListWrapper>
-      <Button onClick={() => setIsOpen(true)}>Open</Button>
-      {modalIsOpen && <RestaurantModal isModalOpen={modalIsOpen} setOpenModal={setIsOpen} />}
+      <Button onClick={() => setModalOpen(true)}>Open</Button>
+      {modalOpen && <RestaurantModal isModalOpen={modalOpen} setOpenModal={setModalOpen} />}
     </Container>
   )
 }
