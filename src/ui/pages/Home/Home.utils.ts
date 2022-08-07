@@ -5,6 +5,10 @@ export interface UserCoordsType {
 
 export interface GoogleRestaurantsType {
   name: string
+  photos: Array<{
+    getUrl: () => string
+  }>
+  website: string
   place_id: string
   rating: number
   vicinity: string

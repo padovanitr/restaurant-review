@@ -9,11 +9,17 @@ import { StyledCard } from './InfoCard.style'
 interface InfoCardProps {
   restaurantInfo: GoogleRestaurantsType
   setModalOpen: Dispatch<SetStateAction<boolean>>
+  setSelectedRestaurantInfo: Dispatch<SetStateAction<GoogleRestaurantsType | undefined>>
 }
 
-function InfoCard({ restaurantInfo, setModalOpen }: InfoCardProps) {
+function InfoCard({ restaurantInfo, setModalOpen, setSelectedRestaurantInfo }: InfoCardProps) {
+  const handleOpenModal = () => {
+    setModalOpen(true)
+    setSelectedRestaurantInfo(restaurantInfo)
+  }
+
   return (
-    <Button onClick={() => setModalOpen(true)}>
+    <Button onClick={handleOpenModal}>
       <StyledCard sx={{ borderRadius: '0.3rem' }}>
         <Typography
           sx={{ fontSize: '1rem', fontWeight: 700, lineHeight: '1.2rem', textAlign: 'center' }}

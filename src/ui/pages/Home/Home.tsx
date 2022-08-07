@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import { useJsApiLoader } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 import RestaurantsList from '../../components/RestaurantsList/RestaurantsList'
@@ -11,14 +10,22 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false)
   const [userCoords, setUserCoords] = useState<UserCoordsType>()
   const [googleRestaurants, setGoogleRestaurants] = useState<GoogleRestaurantsType[]>([])
+  const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState<GoogleRestaurantsType>()
+  const [mapObj, setMapObj] = useState<HTMLDivElement | google.maps.Map>()
+  const [placeInfo, setPlaceInfo] = useState<GoogleRestaurantsType>()
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyD8oKLh-p7_hSxhSg03u_nRkN2RPYpl720',
   })
 
-  const fetchGooglePlaces = (map: HTMLDivElement | google.maps.Map) => {
+  const fetchGooglePlaces = async (map: HTMLDivElement | google.maps.Map) => {
     if (!userCoords) {
       return
+    }
+
+    if (map) {
+      setMapObj(map)
     }
     const pyrmont = new window.google.maps.LatLng(userCoords.lat, userCoords.lng)
 
@@ -32,18 +39,7 @@ function Home() {
 
     service.nearbySearch(request, (results, status) => {
       if (status === 'OK' && results) {
-        const places: unknown[] = []
-        results.forEach((result) => {
-          if (result.place_id) {
-            service.getDetails({ placeId: result.place_id }, (placeResult, pstatus) => {
-              if (pstatus === 'OK' && placeResult) {
-                places.push(placeResult)
-
-                setGoogleRestaurants(places as GoogleRestaurantsType[])
-              }
-            })
-          }
-        })
+        setGoogleRestaurants(results as GoogleRestaurantsType[])
       }
     })
   }
@@ -60,6 +56,28 @@ function Home() {
     setUserCoords(userLocation)
   }
 
+  const getPlaceInfo = (
+    mapObjInfo: HTMLDivElement | google.maps.Map,
+    selectedRestaurant: GoogleRestaurantsType
+  ) => {
+    const service = new google.maps.places.PlacesService(mapObjInfo)
+    const placeId = selectedRestaurant.place_id
+    if (placeId) {
+      service.getDetails({ placeId }, (placeResult, pstatus) => {
+        if (pstatus === 'OK' && placeResult) {
+          console.log('placeResult', placeResult)
+          setPlaceInfo(placeResult)
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (selectedRestaurantInfo && mapObj) {
+      getPlaceInfo(mapObj, selectedRestaurantInfo)
+    }
+  }, [selectedRestaurantInfo, mapObj])
+
   useEffect(() => {
     getUserLocation()
   }, [])
@@ -67,7 +85,7 @@ function Home() {
   return (
     <Container>
       <MapWrapper>
-        {isLoaded && userCoords && (
+        {isLoaded && userCoords && googleRestaurants && (
           <MapContainer
             fetchGooglePlaces={fetchGooglePlaces}
             userCoords={userCoords}
@@ -76,10 +94,21 @@ function Home() {
         )}
       </MapWrapper>
       <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
-        <RestaurantsList setModalOpen={setModalOpen} googleRestaurants={googleRestaurants} />
+        {googleRestaurants && (
+          <RestaurantsList
+            setSelectedRestaurantInfo={setSelectedRestaurantInfo}
+            setModalOpen={setModalOpen}
+            googleRestaurants={googleRestaurants}
+          />
+        )}
       </ListWrapper>
-      <Button onClick={() => setModalOpen(true)}>Open</Button>
-      {modalOpen && <RestaurantModal isModalOpen={modalOpen} setOpenModal={setModalOpen} />}
+      {modalOpen && placeInfo && (
+        <RestaurantModal
+          selectedRestaurantInfo={placeInfo}
+          isModalOpen={modalOpen}
+          setOpenModal={setModalOpen}
+        />
+      )}
     </Container>
   )
 }

@@ -7,9 +7,14 @@ import InfoCard from '../InfoCard'
 export interface RestaurantsListProps {
   googleRestaurants: Array<GoogleRestaurantsType>
   setModalOpen: Dispatch<SetStateAction<boolean>>
+  setSelectedRestaurantInfo: Dispatch<SetStateAction<GoogleRestaurantsType | undefined>>
 }
 
-function RestaurantsList({ googleRestaurants, setModalOpen }: RestaurantsListProps) {
+function RestaurantsList({
+  googleRestaurants,
+  setModalOpen,
+  setSelectedRestaurantInfo,
+}: RestaurantsListProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2 }}>
@@ -22,6 +27,7 @@ function RestaurantsList({ googleRestaurants, setModalOpen }: RestaurantsListPro
         googleRestaurants.map((restaurant) => (
           <InfoCard
             setModalOpen={setModalOpen}
+            setSelectedRestaurantInfo={setSelectedRestaurantInfo}
             key={restaurant.place_id}
             restaurantInfo={restaurant}
           />

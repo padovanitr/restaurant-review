@@ -1,25 +1,16 @@
-import { Box, Modal } from '@mui/material'
+import { Box, Grid, Modal, Typography } from '@mui/material'
+import { GoogleRestaurantsType } from '../../pages/Home/Home.utils'
 import { ModalContainer } from './RestaurantModal.style'
 
 export interface ModalProps {
   setOpenModal: (value: boolean) => void
   isModalOpen: boolean
+  selectedRestaurantInfo?: GoogleRestaurantsType
 }
 
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '1px solid #fff',
-  borderRadius: '6px',
-  boxShadow: 24,
-  p: 4,
-}
+function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: ModalProps) {
+  console.log('selectedRestaurantInfo in modal', selectedRestaurantInfo)
 
-function RestaurantModal({ setOpenModal, isModalOpen }: ModalProps) {
   return (
     <Modal
       open={isModalOpen}
@@ -28,7 +19,24 @@ function RestaurantModal({ setOpenModal, isModalOpen }: ModalProps) {
       aria-describedby="modal-modal-description"
     >
       <ModalContainer>
-        <h2>modal</h2>
+        <Grid container display="flex" gap="10px">
+          <img src={selectedRestaurantInfo?.photos[0].getUrl()} alt="" width="300" />
+          <Box>
+            <Typography sx={{ textAlign: 'center' }} variant="h5">
+              {selectedRestaurantInfo?.name}
+            </Typography>
+            <Box display="flex" gap="5px" sx={{ alignItems: 'center' }}>
+              <Typography sx={{ textAlign: 'center', fontSize: 15 }}>
+                {selectedRestaurantInfo?.vicinity}
+              </Typography>
+            </Box>
+            <Box display="flex" gap="5px" sx={{ alignItems: 'center' }}>
+              <Typography sx={{ textAlign: 'center' }}>
+                {selectedRestaurantInfo?.website}
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
       </ModalContainer>
     </Modal>
   )
