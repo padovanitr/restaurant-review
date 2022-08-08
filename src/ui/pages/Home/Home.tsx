@@ -12,7 +12,7 @@ function Home() {
   const [googleRestaurants, setGoogleRestaurants] = useState<GoogleRestaurantsType[]>([])
   const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState<GoogleRestaurantsType>()
   const [mapObj, setMapObj] = useState<HTMLDivElement | google.maps.Map>()
-  const [placeInfo, setPlaceInfo] = useState<GoogleRestaurantsType>()
+  const [placeInfo, setPlaceInfo] = useState<google.maps.places.PlaceResult | null>()
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',

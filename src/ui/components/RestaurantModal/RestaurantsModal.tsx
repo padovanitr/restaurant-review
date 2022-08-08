@@ -1,11 +1,10 @@
 import { Box, Grid, Modal, Typography } from '@mui/material'
-import { GoogleRestaurantsType } from '../../pages/Home/Home.utils'
 import { ModalContainer } from './RestaurantModal.style'
 
 export interface ModalProps {
   setOpenModal: (value: boolean) => void
   isModalOpen: boolean
-  selectedRestaurantInfo?: GoogleRestaurantsType
+  selectedRestaurantInfo?: google.maps.places.PlaceResult | null
 }
 
 function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: ModalProps) {
@@ -20,7 +19,9 @@ function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: 
     >
       <ModalContainer>
         <Grid container display="flex" gap="10px">
-          <img src={selectedRestaurantInfo?.photos[0].getUrl()} alt="" width="300" />
+          {selectedRestaurantInfo && typeof selectedRestaurantInfo.photos !== 'undefined' && (
+            <img src={selectedRestaurantInfo.photos[0].getUrl()} alt="" width="300" />
+          )}
           <Box>
             <Typography sx={{ textAlign: 'center' }} variant="h5">
               {selectedRestaurantInfo?.name}
