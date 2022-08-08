@@ -6,7 +6,6 @@ export const ModalContainer = styled(Box)(
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 800px;
     background-color: #fff;
     border: 1px solid #fff;
     border-radius: 6px;
