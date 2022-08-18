@@ -10,7 +10,7 @@ export interface PlaceDescriptionProps {
 function PlaceDescription({ selectedRestaurantInfo }: PlaceDescriptionProps) {
   return (
     <>
-      <Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         {selectedRestaurantInfo && typeof selectedRestaurantInfo.photos !== 'undefined' && (
           <img
             src={selectedRestaurantInfo.photos[0].getUrl()}

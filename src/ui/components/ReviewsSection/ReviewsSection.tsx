@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import StarRatings from 'react-star-ratings'
 import { restaurantReviewColors } from '../../../utils/colors'
+import { ReviewsContainer, ReviewsSectionContainer } from './ReviewSection.style'
 
 export interface ReviewsSectionProps {
   selectedRestaurantInfo?: google.maps.places.PlaceResult | null
@@ -8,9 +9,9 @@ export interface ReviewsSectionProps {
 
 function ReviewsSection({ selectedRestaurantInfo }: ReviewsSectionProps) {
   return (
-    <>
+    <ReviewsSectionContainer>
       <Typography>Reviews</Typography>
-      <Box sx={{ paddingTop: '10px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <ReviewsContainer>
         {selectedRestaurantInfo &&
           typeof selectedRestaurantInfo.reviews !== 'undefined' &&
           selectedRestaurantInfo?.reviews.map((review) => (
@@ -25,8 +26,8 @@ function ReviewsSection({ selectedRestaurantInfo }: ReviewsSectionProps) {
               <Typography>{review.author_name}</Typography>
             </Box>
           ))}
-      </Box>
-    </>
+      </ReviewsContainer>
+    </ReviewsSectionContainer>
   )
 }
 

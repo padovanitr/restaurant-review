@@ -23,9 +23,7 @@ function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: 
         <Box display="flex" gap="30px">
           <PlaceDescription selectedRestaurantInfo={selectedRestaurantInfo} />
         </Box>
-        <Box>
-          <ReviewsSection selectedRestaurantInfo={selectedRestaurantInfo} />
-        </Box>
+        <ReviewsSection selectedRestaurantInfo={selectedRestaurantInfo} />
       </ModalContainer>
     </Modal>
   )
