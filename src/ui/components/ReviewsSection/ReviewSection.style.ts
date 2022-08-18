@@ -2,6 +2,8 @@ import { styled, css, Box } from '@mui/material'
 
 export const ReviewsSectionContainer = styled(Box)(
   ({ theme }) => css`
+    padding-top: ${theme.spacing(3)};
+
     & *::-webkit-scrollbar {
       width: 12px;
       height: 12px;

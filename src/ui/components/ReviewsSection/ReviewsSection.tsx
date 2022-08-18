@@ -10,20 +10,26 @@ export interface ReviewsSectionProps {
 function ReviewsSection({ selectedRestaurantInfo }: ReviewsSectionProps) {
   return (
     <ReviewsSectionContainer>
-      <Typography>Reviews</Typography>
+      <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
+        Reviews
+      </Typography>
       <ReviewsContainer>
         {selectedRestaurantInfo &&
           typeof selectedRestaurantInfo.reviews !== 'undefined' &&
           selectedRestaurantInfo?.reviews.map((review) => (
-            <Box key={review.time} sx={{ borderBottom: '1px solid #cccccc', padding: '10px 0' }}>
-              <Typography>{review.text}</Typography>
+            <Box key={review.time} sx={{ borderBottom: '1px solid #cccccc', padding: '5px 0' }}>
+              <Typography variant="subtitle1" sx={{ paddingBottom: '0.7rem' }}>
+                {review.text}
+              </Typography>
               <StarRatings
                 rating={review.rating}
                 starDimension="20px"
                 starSpacing="6px"
                 starRatedColor={restaurantReviewColors.starYellow}
               />
-              <Typography>{review.author_name}</Typography>
+              <Typography sx={{ fontSize: '0.8rem', py: '0.5rem' }}>
+                {review.author_name}
+              </Typography>
             </Box>
           ))}
       </ReviewsContainer>
