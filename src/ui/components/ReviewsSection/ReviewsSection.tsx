@@ -1,18 +1,29 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import StarRatings from 'react-star-ratings'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { restaurantReviewColors } from '../../../utils/colors'
 import { ReviewsContainer, ReviewsSectionContainer } from './ReviewSection.style'
 
 export interface ReviewsSectionProps {
   selectedRestaurantInfo?: google.maps.places.PlaceResult | null
+  setIsAddingReview: (value: boolean) => void
 }
 
-function ReviewsSection({ selectedRestaurantInfo }: ReviewsSectionProps) {
+function ReviewsSection({ selectedRestaurantInfo, setIsAddingReview }: ReviewsSectionProps) {
   return (
     <ReviewsSectionContainer>
-      <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
-        Reviews
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
+          Reviews
+        </Typography>
+        <Button
+          onClick={() => setIsAddingReview(true)}
+          variant="outlined"
+          startIcon={<AddCircleOutlineIcon />}
+        >
+          Add review
+        </Button>
+      </Box>
       <ReviewsContainer>
         {selectedRestaurantInfo &&
           typeof selectedRestaurantInfo.reviews !== 'undefined' &&

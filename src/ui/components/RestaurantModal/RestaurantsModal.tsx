@@ -1,7 +1,9 @@
 import { Box, Modal } from '@mui/material'
+import { useState } from 'react'
 import { ModalContainer } from './RestaurantModal.style'
 import ReviewsSection from '../ReviewsSection'
 import PlaceDescription from '../PlaceDescription'
+import AddReview from '../AddReview'
 
 export interface ModalProps {
   setOpenModal: (value: boolean) => void
@@ -10,7 +12,8 @@ export interface ModalProps {
 }
 
 function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: ModalProps) {
-  console.log('selectedRestaurantInfo in modal', selectedRestaurantInfo)
+  const [isAddingReview, setIsAddingReview] = useState(false)
+  console.log('isAddingReview', isAddingReview)
 
   return (
     <Modal
@@ -23,7 +26,14 @@ function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: 
         <Box display="flex" gap="30px">
           <PlaceDescription selectedRestaurantInfo={selectedRestaurantInfo} />
         </Box>
-        <ReviewsSection selectedRestaurantInfo={selectedRestaurantInfo} />
+        {isAddingReview ? (
+          <AddReview setIsAddingReview={setIsAddingReview} />
+        ) : (
+          <ReviewsSection
+            setIsAddingReview={setIsAddingReview}
+            selectedRestaurantInfo={selectedRestaurantInfo}
+          />
+        )}
       </ModalContainer>
     </Modal>
   )
