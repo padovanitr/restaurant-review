@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
-import * as yup from 'yup'
+import { object, string, number, date } from 'yup'
 import { AddReviewsContainer, AddReviewsSectionContainer } from './AddReview.style'
 
 export interface AddReviewProps {
@@ -17,9 +17,15 @@ export interface reviewInitialValuesType {
   review: string
 }
 
+const validationSchema = object({
+  name: string().required(),
+  review: string().required(),
+})
+
 function AddReview({ setIsAddingReview }: AddReviewProps) {
-  const { handleSubmit, values, handleChange } = useFormik({
+  const { handleSubmit, values, handleChange, errors, touched } = useFormik({
     initialValues: reviewInitialValues,
+    validationSchema,
     onSubmit: (formValues: reviewInitialValuesType) => {
       console.log('values', formValues)
     },
@@ -51,6 +57,8 @@ function AddReview({ setIsAddingReview }: AddReviewProps) {
                 id="name"
                 name="name"
                 label="name"
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
               />
             </Grid>
             <Grid container item xs={12} sx={{ flexDirection: 'column' }}>
@@ -60,6 +68,8 @@ function AddReview({ setIsAddingReview }: AddReviewProps) {
                 id="review"
                 name="review"
                 label="review"
+                error={touched.review && Boolean(errors.review)}
+                helperText={touched.review && errors.review}
               />
             </Grid>
 
