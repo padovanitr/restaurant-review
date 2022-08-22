@@ -25,8 +25,6 @@ export const AddReviewsContainer = styled(Box)(
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-height: 300px;
-    overflow: auto;
 
     & *::-webkit-scrollbar {
       width: 12px;
