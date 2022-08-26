@@ -10,10 +10,12 @@ import {
 } from '@mui/material'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
+import { NewReviewType } from '../RestaurantModal/RestaurantsModal'
 import { AddReviewsContainer, AddReviewsSectionContainer } from './AddReview.style'
 
 export interface AddReviewProps {
   setIsAddingReview: (value: boolean) => void
+  updateRestaurantReview: (newReview: NewReviewType) => void
 }
 
 export const reviewInitialValues = {
@@ -34,12 +36,22 @@ const validationSchema = object({
   rating: string().required(),
 })
 
-function AddReview({ setIsAddingReview }: AddReviewProps) {
+function AddReview({ setIsAddingReview, updateRestaurantReview }: AddReviewProps) {
   const { handleSubmit, values, handleChange, errors, touched } = useFormik({
     initialValues: reviewInitialValues,
     validationSchema,
     onSubmit: (formValues: reviewInitialValuesType) => {
-      console.log('values', formValues)
+      const { name, review, rating } = formValues
+      const newReview = {
+        author_name: name,
+        text: review,
+        rating: Number(rating),
+        language: 'en-US',
+        profile_photo_url: '',
+        relative_time_description: '',
+        time: Date.now(),
+      }
+      updateRestaurantReview(newReview)
     },
   })
 

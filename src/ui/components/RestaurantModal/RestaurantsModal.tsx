@@ -1,5 +1,5 @@
 import { Box, Modal } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ModalContainer } from './RestaurantModal.style'
 import ReviewsSection from '../ReviewsSection'
 import PlaceDescription from '../PlaceDescription'
@@ -8,12 +8,38 @@ import AddReview from '../AddReview'
 export interface ModalProps {
   setOpenModal: (value: boolean) => void
   isModalOpen: boolean
-  selectedRestaurantInfo?: google.maps.places.PlaceResult | null
+  selectedRestaurantInfo?: google.maps.places.PlaceResult
+}
+
+export type NewReviewType = {
+  author_name: string
+  text: string
+  rating: number
+  language: string
+  profile_photo_url: string
+  relative_time_description: string
+  time: number
 }
 
 function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: ModalProps) {
   const [isAddingReview, setIsAddingReview] = useState(false)
-  console.log('isAddingReview', isAddingReview)
+  const [updatedInfo, setUpdatedInfo] = useState<google.maps.places.PlaceResult | null>()
+
+  const updateRestaurantReview = (newReview: NewReviewType) => {
+    if (selectedRestaurantInfo) {
+      const infoCopy = { ...selectedRestaurantInfo }
+      const { reviews } = infoCopy
+      if (reviews) {
+        reviews.unshift(newReview)
+        setUpdatedInfo(infoCopy)
+        setIsAddingReview(false)
+      }
+    }
+  }
+
+  useEffect(() => {
+    setUpdatedInfo(selectedRestaurantInfo)
+  }, [selectedRestaurantInfo])
 
   return (
     <Modal
@@ -24,14 +50,17 @@ function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: 
     >
       <ModalContainer>
         <Box display="flex" gap="30px">
-          <PlaceDescription selectedRestaurantInfo={selectedRestaurantInfo} />
+          <PlaceDescription selectedRestaurantInfo={updatedInfo} />
         </Box>
         {isAddingReview ? (
-          <AddReview setIsAddingReview={setIsAddingReview} />
+          <AddReview
+            setIsAddingReview={setIsAddingReview}
+            updateRestaurantReview={updateRestaurantReview}
+          />
         ) : (
           <ReviewsSection
             setIsAddingReview={setIsAddingReview}
-            selectedRestaurantInfo={selectedRestaurantInfo}
+            selectedRestaurantInfo={updatedInfo}
           />
         )}
       </ModalContainer>
