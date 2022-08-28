@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import { restaurantReviewColors } from '../../../utils/colors'
 
 function SubMenu() {
   return (
@@ -8,9 +9,9 @@ function SubMenu() {
         height: '60px',
         display: 'flex',
         alignItems: 'center',
+        backgroundColor: restaurantReviewColors.mainRed,
       }}
     >
-      <Box sx={{ flex: 1 }}>submenu</Box>
       <Box>search</Box>
     </Box>
   )

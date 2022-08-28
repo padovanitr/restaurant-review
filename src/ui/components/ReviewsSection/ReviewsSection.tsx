@@ -19,6 +19,7 @@ function ReviewsSection({ selectedRestaurantInfo, setIsAddingReview }: ReviewsSe
         <Button
           onClick={() => setIsAddingReview(true)}
           variant="outlined"
+          color="secondary"
           startIcon={<AddCircleOutlineIcon />}
         >
           Add review

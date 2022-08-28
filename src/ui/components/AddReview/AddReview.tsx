@@ -83,6 +83,7 @@ function AddReview({ setIsAddingReview, updateRestaurantReview }: AddReviewProps
                 label="name"
                 error={touched.name && Boolean(errors.name)}
                 helperText={touched.name && errors.name}
+                color="secondary"
               />
             </Grid>
             <Grid container item xs={12} mb="1rem" sx={{ flexDirection: 'column' }}>
@@ -94,6 +95,9 @@ function AddReview({ setIsAddingReview, updateRestaurantReview }: AddReviewProps
                 label="review"
                 error={touched.review && Boolean(errors.review)}
                 helperText={touched.review && errors.review}
+                color="secondary"
+                multiline
+                rows={4}
               />
             </Grid>
             <Grid container mb="1rem" item xs={12} sx={{ flexDirection: 'column' }}>
@@ -112,7 +116,7 @@ function AddReview({ setIsAddingReview, updateRestaurantReview }: AddReviewProps
               </RadioGroup>
             </Grid>
 
-            <Button variant="contained" type="submit">
+            <Button variant="contained" color="secondary" type="submit">
               Send
             </Button>
           </Grid>

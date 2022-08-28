@@ -22,7 +22,7 @@ const baseTheme = createTheme({
       main: restaurantReviewColors.mainRed,
     },
     secondary: {
-      main: restaurantReviewColors.lightGray,
+      main: restaurantReviewColors.mainBlue,
     },
     background: {
       default: '#FAFAFA',
