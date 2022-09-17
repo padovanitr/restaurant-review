@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import { restaurantReviewColors } from '../../../utils/colors'
+import SearchBar from '../SearchBar'
 
 function SubMenu() {
   return (
@@ -12,7 +13,13 @@ function SubMenu() {
         backgroundColor: restaurantReviewColors.mainRed,
       }}
     >
-      <Box>search</Box>
+      <Box>
+        <SearchBar
+          name="searchRestaurant"
+          placeholder="Search restaurant..."
+          ariaLabel="search restaurant"
+        />
+      </Box>
     </Box>
   )
 }

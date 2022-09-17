@@ -5,6 +5,7 @@ import MapContainer from '../../components/MapContainer'
 import RestaurantModal from '../../components/RestaurantModal'
 import { Container, ListWrapper, MapWrapper } from './Home.style'
 import { GoogleRestaurantsType, UserCoordsType } from './Home.utils'
+import SubMenu from '../../components/SubMenu'
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false)
@@ -83,33 +84,36 @@ function Home() {
   }, [])
 
   return (
-    <Container>
-      <MapWrapper>
-        {isLoaded && userCoords && googleRestaurants && (
-          <MapContainer
-            fetchGooglePlaces={fetchGooglePlaces}
-            userCoords={userCoords}
-            googleRestaurants={googleRestaurants}
+    <>
+      <SubMenu />
+      <Container>
+        <MapWrapper>
+          {isLoaded && userCoords && googleRestaurants && (
+            <MapContainer
+              fetchGooglePlaces={fetchGooglePlaces}
+              userCoords={userCoords}
+              googleRestaurants={googleRestaurants}
+            />
+          )}
+        </MapWrapper>
+        <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
+          {googleRestaurants && (
+            <RestaurantsList
+              setSelectedRestaurantInfo={setSelectedRestaurantInfo}
+              setModalOpen={setModalOpen}
+              googleRestaurants={googleRestaurants}
+            />
+          )}
+        </ListWrapper>
+        {modalOpen && placeInfo && (
+          <RestaurantModal
+            selectedRestaurantInfo={placeInfo}
+            isModalOpen={modalOpen}
+            setOpenModal={setModalOpen}
           />
         )}
-      </MapWrapper>
-      <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
-        {googleRestaurants && (
-          <RestaurantsList
-            setSelectedRestaurantInfo={setSelectedRestaurantInfo}
-            setModalOpen={setModalOpen}
-            googleRestaurants={googleRestaurants}
-          />
-        )}
-      </ListWrapper>
-      {modalOpen && placeInfo && (
-        <RestaurantModal
-          selectedRestaurantInfo={placeInfo}
-          isModalOpen={modalOpen}
-          setOpenModal={setModalOpen}
-        />
-      )}
-    </Container>
+      </Container>
+    </>
   )
 }
 
