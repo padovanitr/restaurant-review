@@ -6,13 +6,15 @@ export interface SearchBarProps {
   name: string
   placeholder: string
   ariaLabel: string
+  setPlaceSearch: (e: string) => void
 }
 
-function SearchBar({ name, placeholder, ariaLabel }: SearchBarProps) {
+function SearchBar({ name, placeholder, ariaLabel, setPlaceSearch }: SearchBarProps) {
   return (
     <StyledTextField
       name={name}
       placeholder={placeholder}
+      onChange={(e) => setPlaceSearch(e.target.value)}
       InputProps={{
         startAdornment: (
           <IconButton aria-label={ariaLabel} onClick={() => console.log('clicou')}>

@@ -2,7 +2,11 @@ import { Box } from '@mui/material'
 import { restaurantReviewColors } from '../../../utils/colors'
 import SearchBar from '../SearchBar'
 
-function SubMenu() {
+export interface SubMenuProps {
+  setPlaceSearch: (e: string) => void
+}
+
+function SubMenu({ setPlaceSearch }: SubMenuProps) {
   return (
     <Box
       sx={{
@@ -15,6 +19,7 @@ function SubMenu() {
     >
       <Box>
         <SearchBar
+          setPlaceSearch={setPlaceSearch}
           name="searchRestaurant"
           placeholder="Search restaurant..."
           ariaLabel="search restaurant"

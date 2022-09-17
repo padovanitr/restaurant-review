@@ -14,6 +14,7 @@ function Home() {
   const [selectedRestaurantInfo, setSelectedRestaurantInfo] = useState<GoogleRestaurantsType>()
   const [mapObj, setMapObj] = useState<HTMLDivElement | google.maps.Map>()
   const [placeInfo, setPlaceInfo] = useState<google.maps.places.PlaceResult | null>()
+  const [placeSearch, setPlaceSearch] = useState<string>('')
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -85,7 +86,7 @@ function Home() {
 
   return (
     <>
-      <SubMenu />
+      <SubMenu setPlaceSearch={setPlaceSearch} />
       <Container>
         <MapWrapper>
           {isLoaded && userCoords && googleRestaurants && (
@@ -99,6 +100,7 @@ function Home() {
         <ListWrapper sx={{ flex: 1, padding: '30px 40px', overflow: 'scroll', margin: '0 auto' }}>
           {googleRestaurants && (
             <RestaurantsList
+              placeSearch={placeSearch}
               setSelectedRestaurantInfo={setSelectedRestaurantInfo}
               setModalOpen={setModalOpen}
               googleRestaurants={googleRestaurants}

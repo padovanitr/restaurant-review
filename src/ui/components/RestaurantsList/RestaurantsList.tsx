@@ -8,12 +8,14 @@ export interface RestaurantsListProps {
   googleRestaurants: Array<GoogleRestaurantsType>
   setModalOpen: Dispatch<SetStateAction<boolean>>
   setSelectedRestaurantInfo: Dispatch<SetStateAction<GoogleRestaurantsType | undefined>>
+  placeSearch: string
 }
 
 function RestaurantsList({
   googleRestaurants,
   setModalOpen,
   setSelectedRestaurantInfo,
+  placeSearch,
 }: RestaurantsListProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3 }}>
@@ -24,14 +26,22 @@ function RestaurantsList({
         <Typography>({googleRestaurants.length} results)</Typography>
       </Box>
       {googleRestaurants &&
-        googleRestaurants.map((restaurant) => (
-          <InfoCard
-            setModalOpen={setModalOpen}
-            setSelectedRestaurantInfo={setSelectedRestaurantInfo}
-            key={restaurant.place_id}
-            restaurantInfo={restaurant}
-          />
-        ))}
+        googleRestaurants
+          .filter((restaurant) => {
+            if (placeSearch !== '') {
+              return restaurant.name.toLowerCase().includes(placeSearch.toLowerCase())
+            }
+
+            return restaurant
+          })
+          .map((restaurant) => (
+            <InfoCard
+              setModalOpen={setModalOpen}
+              setSelectedRestaurantInfo={setSelectedRestaurantInfo}
+              key={restaurant.place_id}
+              restaurantInfo={restaurant}
+            />
+          ))}
     </Box>
   )
 }
