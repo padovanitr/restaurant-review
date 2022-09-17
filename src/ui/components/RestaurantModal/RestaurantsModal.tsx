@@ -1,6 +1,6 @@
 import { Box, Modal } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { ModalContainer } from './RestaurantModal.style'
+import { ModalContainer, PlaceDescriptionWrapper } from './RestaurantModal.style'
 import ReviewsSection from '../ReviewsSection'
 import PlaceDescription from '../PlaceDescription'
 import AddReview from '../AddReview'
@@ -49,9 +49,9 @@ function RestaurantModal({ setOpenModal, isModalOpen, selectedRestaurantInfo }: 
       aria-describedby="modal-modal-description"
     >
       <ModalContainer>
-        <Box display="flex" gap="30px">
+        <PlaceDescriptionWrapper>
           <PlaceDescription selectedRestaurantInfo={updatedInfo} />
-        </Box>
+        </PlaceDescriptionWrapper>
         {isAddingReview ? (
           <AddReview
             setIsAddingReview={setIsAddingReview}
