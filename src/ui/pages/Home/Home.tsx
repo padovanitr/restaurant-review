@@ -47,15 +47,20 @@ function Home() {
   }
 
   const getUserLocation = async () => {
-    const { coords } = await new Promise((res, rej) => {
-      navigator.geolocation.getCurrentPosition(res, rej)
-    })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude } = position.coords
+        const { longitude } = position.coords
 
-    const userLocation = {
-      lat: coords.latitude,
-      lng: coords.longitude,
+        const userLocation = {
+          lat: latitude,
+          lng: longitude,
+        }
+        setUserCoords(userLocation)
+      })
+    } else {
+      console.log('Geolocation is not supported by this browser.')
     }
-    setUserCoords(userLocation)
   }
 
   const getPlaceInfo = (
@@ -67,7 +72,6 @@ function Home() {
     if (placeId) {
       service.getDetails({ placeId }, (placeResult, pstatus) => {
         if (pstatus === 'OK' && placeResult) {
-          console.log('placeResult', placeResult)
           setPlaceInfo(placeResult)
         }
       })
